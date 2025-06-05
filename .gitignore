@@ -27,7 +27,7 @@ venv/
 .DS_Store
 *.tmp
 *.log
-*.csv
+# *.csv
 *.tsv
 *.parquet
 *.pkl
