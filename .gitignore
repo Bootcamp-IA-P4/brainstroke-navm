@@ -30,7 +30,6 @@ venv/
 # *.csv
 *.tsv
 *.parquet
-*.pkl
 *.joblib
 
 # === Modelos guardados ===
