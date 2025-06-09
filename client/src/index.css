@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    @apply bg-cream-900 text-lapis_lazuli-200 m-0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-lapis_lazuli-500;
+  }
+
+  a {
+    @apply font-medium text-teal-600 no-underline hover:text-teal-700 transition-colors;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-lapis_lazuli-500 hover:bg-lapis_lazuli-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+
+  .btn-accent {
+    @apply bg-mint-500 hover:bg-mint-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+
+  .btn-outline {
+    @apply border-2 border-lapis_lazuli-500 text-lapis_lazuli-500 hover:bg-lapis_lazuli-500 hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200;
+  }
+  
+  .card {
+    @apply bg-white shadow-xl rounded-2xl p-6 border border-lapis_lazuli-100/20 backdrop-blur-sm;
+  }
+
+  .card-dark {
+    @apply bg-lapis_lazuli-100 shadow-xl rounded-2xl p-6 border border-lapis_lazuli-200 text-cream-800;
+  }
+  
+  .form-input {
+    @apply w-full px-4 py-3 border-2 border-lapis_lazuli-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 transition-all duration-200 bg-white;
+  }
+  
+  .form-select {
+    @apply w-full px-4 py-3 border-2 border-lapis_lazuli-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 transition-all duration-200 bg-white;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-cream-800 via-cream-700 to-mint-900;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-r from-lapis_lazuli-500 to-teal-500;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-teal-500 to-mint-500;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-lapis_lazuli-600 to-teal-600 bg-clip-text text-transparent;
+  }
+
+  /* Estilos para indicadores de riesgo */
+  .risk-low {
+    @apply bg-mint-50 border-mint-200 text-mint-800;
+  }
+
+  .risk-medium {
+    @apply bg-cream-300 border-cream-400 text-cream-100;
+  }
+
+  .risk-high {
+    @apply bg-lapis_lazuli-50 border-lapis_lazuli-200 text-lapis_lazuli-800;
+  }
+
+  /* Animaciones */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+
+  .slide-up {
+    @apply animate-slide-up;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
