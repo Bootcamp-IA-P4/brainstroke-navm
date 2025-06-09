@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import AssessmentForm from './components/AssessmentForm';
 import Results from './components/Results';
+import PredictionHistory from './components/PredictionHistory';
 import './index.css';
 
 function App() {
@@ -10,11 +11,12 @@ function App() {
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleStartAssessment = () => {
     setShowAssessment(true);
     setTimeout(() => {
-      document.getElementById('assessment').scrollIntoView({ 
+      document.getElementById('assessment')?.scrollIntoView({ 
         behavior: 'smooth' 
       });
     }, 100);
@@ -22,9 +24,12 @@ function App() {
 
   const handleSubmitAssessment = async (formData) => {
     setLoading(true);
+    setError(null);
+    
     try {
-      // Aquí harás la llamada a tu API de FastAPI
-      const response = await fetch('/api/predict', {
+      console.log('Sending data:', formData); // Debug
+      
+      const response = await fetch('http://localhost:8000/api/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,17 +37,18 @@ function App() {
         body: JSON.stringify(formData),
       });
       
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('Received data:', data); // Debug
       setResult(data);
       setShowResults(true);
     } catch (error) {
       console.error('Error:', error);
-      // Simulación temporal para desarrollo
-      setResult({
-        probability: Math.random() * 0.8 + 0.1,
-        factors: ['edad', 'hipertensión']
-      });
-      setShowResults(true);
+      setError(`Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -52,11 +58,18 @@ function App() {
     setShowAssessment(false);
     setShowResults(false);
     setResult(null);
+    setError(null);
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream-900">
       <Header />
+      
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mx-4 mt-4">
+          {error}
+        </div>
+      )}
       
       {!showResults ? (
         <>
@@ -67,6 +80,8 @@ function App() {
               loading={loading}
             />
           )}
+          {/* Agregar el historial después del formulario */}
+          <PredictionHistory />
         </>
       ) : (
         <div className="py-20">
