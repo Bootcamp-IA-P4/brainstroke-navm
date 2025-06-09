@@ -10,12 +10,13 @@ def read_root():
 
 
 class User(BaseModel):
-    gender: bool
+    gender: str
     age: float
     hypertension: bool
     heart_disease: bool
+    ever_married: str
     work_type: str
-    Residence_type: bool
+    Residence_type: str
     avg_glucose_level: float
     bmi: float
     smoking_status: str
@@ -30,8 +31,8 @@ def create_user(user: User):
 @app.get("/users/")
 def get_users():
     try:
-        response = supabase.table("users").select("*").limit(20).execute()
-        return {"users": response.data}
+        response = supabase.table("brain_stroke").select("*").limit(20).execute()
+        return {"brain_stroke": response.data}
     except Exception as e:
         return {"error": str(e)}
     
