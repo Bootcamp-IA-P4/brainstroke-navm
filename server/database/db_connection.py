@@ -10,7 +10,7 @@ supabase: Client = create_client(url, key)
 
 def test_connection():
     try:
-        response = supabase.table("users").select("*").limit(1).execute()
+        response = supabase.table("brain_stroke").select("*").limit(1).execute()
         return response.data is not None
     except Exception as e:
         print(f"❌Error al conectar a la base de datos: {e}")
