@@ -99,7 +99,7 @@ def convert_to_user(data: PredictionRequest, probability:float) -> User:
         bmi=float(data.bmi),
         work_type=data.work_type,
         smoking_status=data.smoking_status,
-        resultado=str(probability)
+        resultado = f"{probability:.6f}"
     )
 
 
