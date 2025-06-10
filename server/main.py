@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from server.database.save_user import save_user
 from server.database.db_connection import supabase
 import joblib
@@ -61,6 +61,24 @@ class PredictionRequest(BaseModel):
     work_type: str
     smoking_status: str
 
+    # @field_validator('hypertension', 'heart_disease', mode='before')
+    # @classmethod
+    # def str_to_bool(cls, v):
+    #     if v == "1":
+    #         return True
+    #     elif v == "0":
+    #         return False
+    #     return v  # deja el valor como está si no es "1" o "0"
+
+    # @field_validator('ever_married', mode='before')
+    # @classmethod
+    # def ever_married_validator(cls, v):
+    #     return "Yes" if v == "1" else "No" if v == "0" else v
+
+    # @field_validator('Residence_type', mode='before')
+    # @classmethod
+    # def residence_type_validator(cls, v):
+    #     return "Urban" if v == "1" else "Rural" if v == "0" else v
 class PredictionResponse(BaseModel):
     probability: float
     risk_level: str
@@ -81,7 +99,7 @@ def convert_to_user(data: PredictionRequest, probability:float) -> User:
         bmi=float(data.bmi),
         work_type=data.work_type,
         smoking_status=data.smoking_status,
-        resultado=f"{probability:.3f}"
+        resultado=str(probability)
     )
 
 
