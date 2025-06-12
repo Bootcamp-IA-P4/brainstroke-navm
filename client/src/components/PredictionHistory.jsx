@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaUserTie, FaSync, FaChartLine, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
+import { FaUser, FaUserTie, FaSync, FaChartLine, FaExclamationTriangle, FaCheckCircle, FaHeartbeat, FaWeight, FaSmoking } from 'react-icons/fa';
 import { MdFemale, MdMale } from 'react-icons/md';
 
 const PredictionHistory = () => {
@@ -16,7 +16,7 @@ const PredictionHistory = () => {
       setLoading(true);
       console.log('Fetching predictions...');
       
-      const response = await fetch('http://localhost:8000/users');
+      const response = await fetch('http://localhost:8000/users/');
       console.log('Response status:', response.status);
       
       if (!response.ok) {
@@ -26,8 +26,7 @@ const PredictionHistory = () => {
       const data = await response.json();
       console.log('Received data:', data);
       
-      // Cambiar de brain_stroke a brainstroke según tu backend
-      const predictionsData = data.brainstroke || data.brainstroke || [];
+      const predictionsData = data.brainstroke || [];
       setPredictions(predictionsData);
       
     } catch (err) {
@@ -36,6 +35,25 @@ const PredictionHistory = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const getAgeRange = (ageClass) => {
+    const ageRanges = {
+      1: "18-24",
+      2: "25-29", 
+      3: "30-34",
+      4: "35-39",
+      5: "40-44",
+      6: "45-49",
+      7: "50-54",
+      8: "55-59",
+      9: "60-64",
+      10: "65-69",
+      11: "70-74",
+      12: "75-79",
+      13: "80+"
+    };
+    return ageRanges[parseInt(ageClass)] || "N/A";
   };
 
   const getRiskBadge = (resultado) => {
@@ -99,7 +117,10 @@ const PredictionHistory = () => {
               Historial de Predicciones
             </h2>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-700">❌ Error: {error}</p>
+              <p className="text-red-700">
+                <FaExclamationTriangle className="inline mr-2" />
+                Error: {error}
+              </p>
               <button 
                 onClick={fetchPredictions}
                 className="mt-4 btn-secondary"
@@ -168,14 +189,14 @@ const PredictionHistory = () => {
                   {predictions.slice(0, 10).map((prediction, index) => (
                     <tr key={prediction.id || index} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {formatDate(prediction.created_at)}
+                        {formatDate(prediction.Created_at)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {prediction.Age || prediction.age} años
+                        {getAgeRange(prediction.Age)} años
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div className="flex items-center gap-1">
-                          {(prediction.Sex || prediction.gender) === "1" || (prediction.Sex || prediction.gender) === 1 ? (
+                          {prediction.Sex == "1" || prediction.Sex == 1 ? (
                             <>
                               <MdFemale className="text-pink-500" />
                               Femenino
@@ -190,33 +211,37 @@ const PredictionHistory = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div className="flex flex-wrap gap-1">
-                          {(prediction.HighBP || prediction.hypertension) == 1 && (
-                            <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
+                          {prediction.HighBP == 1 && (
+                            <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded flex items-center gap-1">
+                              <FaHeartbeat className="text-xs" />
                               HTA
                             </span>
                           )}
-                          {(prediction.HeartDiseaseorAttack || prediction.heart_disease) == 1 && (
-                            <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded">
+                          {prediction.HeartDiseaseorAttack == 1 && (
+                            <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded flex items-center gap-1">
+                              <FaHeartbeat className="text-xs" />
                               Cardíaco
                             </span>
                           )}
-                          {(prediction.BMI || prediction.bmi) > 30 && (
-                            <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">
+                          {prediction.BMI > 30 && (
+                            <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded flex items-center gap-1">
+                              <FaWeight className="text-xs" />
                               Obesidad
                             </span>
                           )}
-                          {(prediction.Smoker || prediction.smoking_status) == 1 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                          {prediction.Smoker == 1 && (
+                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded flex items-center gap-1">
+                              <FaSmoking className="text-xs" />
                               Fumador
                             </span>
                           )}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {(parseFloat(prediction.Resultado || prediction.resultado) * 100).toFixed(1)}%
+                        {(parseFloat(prediction.Resultado) * 100).toFixed(1)}%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {getRiskBadge(prediction.Resultado || prediction.resultado)}
+                        {getRiskBadge(prediction.Resultado)}
                       </td>
                     </tr>
                   ))}

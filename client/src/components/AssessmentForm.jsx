@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUser, FaHeartbeat, FaWeight, FaSmoking, FaCalendarAlt } from 'react-icons/fa';
+import { FaUser, FaHeartbeat, FaWeight, FaSmoking, FaCalendarAlt, FaTimes, FaCheck, FaExclamationTriangle } from 'react-icons/fa';
 import { MdFemale, MdMale } from 'react-icons/md';
 
 const AssessmentForm = ({ onSubmit, loading }) => {
@@ -44,7 +44,7 @@ const AssessmentForm = ({ onSubmit, loading }) => {
               
               {/* Género */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaUser className="text-lapis_lazuli-500" />
                   Género
                 </label>
@@ -56,33 +56,50 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                   required
                 >
                   <option value="">Seleccionar género</option>
-                  <option value="0">👨 Masculino</option>
-                  <option value="1">👩 Femenino</option>
+                  <option value="0">
+                    <MdMale className="inline mr-2" />
+                    Masculino
+                  </option>
+                  <option value="1">
+                    <MdFemale className="inline mr-2" />
+                    Femenino
+                  </option>
                 </select>
               </div>
 
-              {/* Edad */}
+              {/* Rango de Edad */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaCalendarAlt className="text-lapis_lazuli-500" />
-                  Edad
+                  Rango de Edad
                 </label>
-                <input
-                  type="number"
+                <select
                   name="Age"
                   value={formData.Age}
                   onChange={handleChange}
-                  className="form-input"
-                  placeholder="Ingrese su edad"
-                  min="1"
-                  max="120"
+                  className="form-select"
                   required
-                />
+                >
+                  <option value="">Seleccionar rango de edad</option>
+                  <option value="1">18-24 años</option>
+                  <option value="2">25-29 años</option>
+                  <option value="3">30-34 años</option>
+                  <option value="4">35-39 años</option>
+                  <option value="5">40-44 años</option>
+                  <option value="6">45-49 años</option>
+                  <option value="7">50-54 años</option>
+                  <option value="8">55-59 años</option>
+                  <option value="9">60-64 años</option>
+                  <option value="10">65-69 años</option>
+                  <option value="11">70-74 años</option>
+                  <option value="12">75-79 años</option>
+                  <option value="13">80+ años</option>
+                </select>
               </div>
 
               {/* Hipertensión */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaHeartbeat className="text-red-500" />
                   ¿Tiene hipertensión arterial?
                 </label>
@@ -94,14 +111,20 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                   required
                 >
                   <option value="">Seleccionar</option>
-                  <option value="0">❌ No</option>
-                  <option value="1">✅ Sí</option>
+                  <option value="0">
+                    <FaTimes className="inline mr-2 text-red-500" />
+                    No
+                  </option>
+                  <option value="1">
+                    <FaCheck className="inline mr-2 text-green-500" />
+                    Sí
+                  </option>
                 </select>
               </div>
 
               {/* Enfermedad cardíaca */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaHeartbeat className="text-orange-500" />
                   ¿Tiene enfermedad cardíaca o ha sufrido un ataque cardíaco?
                 </label>
@@ -113,14 +136,20 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                   required
                 >
                   <option value="">Seleccionar</option>
-                  <option value="0">❌ No</option>
-                  <option value="1">✅ Sí</option>
+                  <option value="0">
+                    <FaTimes className="inline mr-2 text-red-500" />
+                    No
+                  </option>
+                  <option value="1">
+                    <FaCheck className="inline mr-2 text-green-500" />
+                    Sí
+                  </option>
                 </select>
               </div>
 
               {/* BMI */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaWeight className="text-mint-500" />
                   Índice de Masa Corporal (BMI)
                 </label>
@@ -143,7 +172,7 @@ const AssessmentForm = ({ onSubmit, loading }) => {
 
               {/* Estado de fumador */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaSmoking className="text-gray-500" />
                   ¿Es fumador?
                 </label>
@@ -155,15 +184,22 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                   required
                 >
                   <option value="">Seleccionar</option>
-                  <option value="0">🚭 Nunca fumé</option>
-                  <option value="1">🚬 Sí, fumo actualmente</option>
+                  <option value="0">
+                    <FaTimes className="inline mr-2 text-green-500" />
+                    Nunca fumé
+                  </option>
+                  <option value="1">
+                    <FaSmoking className="inline mr-2 text-gray-600" />
+                    Sí, fumo actualmente
+                  </option>
                 </select>
               </div>
             </div>
 
             <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6 mt-8">
               <h4 className="font-semibold text-teal-800 mb-3 flex items-center gap-2">
-                ℹ️ Información importante
+                <FaExclamationTriangle className="text-teal-600" />
+                Información importante
               </h4>
               <ul className="text-teal-700 text-sm space-y-1">
                 <li>• Esta evaluación es solo informativa y no reemplaza la consulta médica</li>
@@ -185,7 +221,8 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    🧠 Evaluar Riesgo de ACV
+                    <FaHeartbeat className="text-lg" />
+                    Evaluar Riesgo de ACV
                   </span>
                 )}
               </button>

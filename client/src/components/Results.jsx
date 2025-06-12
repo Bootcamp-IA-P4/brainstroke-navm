@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCheckCircle, FaExclamationTriangle, FaExclamationCircle, FaRedo, FaDownload } from 'react-icons/fa';
+import { FaCheckCircle, FaExclamationTriangle, FaExclamationCircle, FaRedo, FaDownload, FaHeartbeat } from 'react-icons/fa';
 
 const Results = ({ result, onReset }) => {
   const getRiskLevel = (probability) => {
