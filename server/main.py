@@ -144,7 +144,7 @@ async def predict_stroke(data: PredictionRequest):
 @app.get("/users/")
 def get_users():
     try:
-        response = supabase.table("brainstroke").select("*").order('created_at', desc=True).limit(10).execute()
+        response = supabase.table("brainstroke").select("*").order('Created_at', desc=True).limit(10).execute()
         return {"brainstroke": response.data}
     except Exception as e:
         return {"error": str(e), "brainstroke": []}
