@@ -36,3 +36,4 @@ venv/
 # === Modelos guardados ===
 models/
 outputs/
+node_modules/
