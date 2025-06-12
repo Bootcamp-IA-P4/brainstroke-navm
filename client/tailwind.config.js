@@ -3,6 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      // Agregar las fuentes personalizadas
+      fontFamily: {
+        'caprasimo': ['Caprasimo', 'cursive'],
+        'raleway': ['Raleway', 'sans-serif'],
+        'heading': ['Caprasimo', 'cursive'],
+        'body': ['Raleway', 'sans-serif'],
+      },
       colors: {
         lapis_lazuli: {
           DEFAULT: '#05668d',

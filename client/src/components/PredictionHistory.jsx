@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FaUser, FaUserTie, FaSync, FaChartLine, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
+import { MdFemale, MdMale } from 'react-icons/md';
 
 const PredictionHistory = () => {
   const [predictions, setPredictions] = useState([]);
@@ -28,20 +30,23 @@ const PredictionHistory = () => {
     const probability = parseFloat(resultado);
     if (probability < 0.3) {
       return (
-        <span className="px-3 py-1 rounded-full text-sm font-medium bg-mint-100 text-mint-700 border border-mint-200">
-          🟢 Bajo
+        <span className="px-3 py-1 rounded-full text-sm font-medium bg-mint-100 text-mint-700 border border-mint-200 flex items-center gap-1">
+          <FaCheckCircle className="text-xs" />
+          Bajo
         </span>
       );
     } else if (probability < 0.7) {
       return (
-        <span className="px-3 py-1 rounded-full text-sm font-medium bg-cream-300 text-cream-100 border border-cream-400">
-          🟡 Moderado
+        <span className="px-3 py-1 rounded-full text-sm font-medium bg-cream-300 text-cream-100 border border-cream-400 flex items-center gap-1">
+          <FaExclamationTriangle className="text-xs" />
+          Moderado
         </span>
       );
     } else {
       return (
-        <span className="px-3 py-1 rounded-full text-sm font-medium bg-lapis_lazuli-100 text-lapis_lazuli-700 border border-lapis_lazuli-200">
-          🔴 Alto
+        <span className="px-3 py-1 rounded-full text-sm font-medium bg-lapis_lazuli-100 text-lapis_lazuli-700 border border-lapis_lazuli-200 flex items-center gap-1">
+          <FaExclamationTriangle className="text-xs" />
+          Alto
         </span>
       );
     }
@@ -94,8 +99,9 @@ const PredictionHistory = () => {
     <section id="history" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-lapis_lazuli-600 mb-4">
-            📊 Historial de Predicciones
+          <h2 className="text-3xl text-lapis_lazuli-600 mb-4 flex items-center justify-center gap-3">
+            <FaChartLine className="text-teal-600" />
+            Historial de Predicciones
           </h2>
           <p className="text-teal-600 text-lg">
             Últimas evaluaciones realizadas con nuestro modelo de IA
@@ -105,7 +111,7 @@ const PredictionHistory = () => {
         {predictions.length === 0 ? (
           <div className="text-center">
             <div className="card">
-              <div className="text-6xl mb-4">📋</div>
+              <FaChartLine className="text-6xl text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-lapis_lazuli-600 mb-2">
                 No hay predicciones aún
               </h3>
@@ -150,7 +156,19 @@ const PredictionHistory = () => {
                         {prediction.age} años
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {prediction.gender === "1" ? "👩 Femenino" : "👨 Masculino"}
+                        <div className="flex items-center gap-1">
+                          {prediction.gender === "1" ? (
+                            <>
+                              <MdFemale className="text-pink-500" />
+                              Femenino
+                            </>
+                          ) : (
+                            <>
+                              <MdMale className="text-blue-500" />
+                              Masculino
+                            </>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div className="flex flex-wrap gap-1">
@@ -196,9 +214,10 @@ const PredictionHistory = () => {
         <div className="mt-8 text-center">
           <button 
             onClick={fetchPredictions}
-            className="btn-secondary"
+            className="btn-secondary flex items-center gap-2 mx-auto"
           >
-            🔄 Actualizar Datos
+            <FaSync className="text-sm" />
+            Actualizar Datos
           </button>
         </div>
       </div>
