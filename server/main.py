@@ -22,7 +22,7 @@ app.add_middleware(
 
 # Cargar el modelo ML al iniciar la aplicación
 try:
-    model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'model2.pkl')
+    model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'modelo_xgb.pkl')
     model = joblib.load(model_path)
     print("✅ Modelo cargado exitosamente!")
 except Exception as e:
@@ -36,49 +36,24 @@ def read_root():
 
 # Este es el BaseModel para guardar los datos en valores que tenemos en supabase.
 class User(BaseModel):
-    gender: str
-    age: float
-    hypertension: bool
-    heart_disease: bool
-    ever_married: str
-    work_type: str
-    Residence_type: str
-    avg_glucose_level: float
-    bmi: float
-    smoking_status: str
-    resultado: str
+    Age: float
+    Sex: float
+    HighBP: float
+    HeartDiseaseorAttack: float
+    BMI: float
+    Smoker: float
+    Resultado: str
 
 # Este es el BaseModel para la predicción, es como recibimos los datos del front, lo recibimos todos como strings.
 class PredictionRequest(BaseModel):
-    gender: str
-    age: str
-    hypertension: str
-    heart_disease: str
-    ever_married: str
-    Residence_type: str
-    avg_glucose_level: str
-    bmi: str
-    work_type: str
-    smoking_status: str
+    Age: str
+    Sex: str
+    HighBP: str
+    HeartDiseaseorAttack: str
+    BMI: str
+    Smoker: str
+    Resultado: str
 
-    # @field_validator('hypertension', 'heart_disease', mode='before')
-    # @classmethod
-    # def str_to_bool(cls, v):
-    #     if v == "1":
-    #         return True
-    #     elif v == "0":
-    #         return False
-    #     return v  # deja el valor como está si no es "1" o "0"
-
-    # @field_validator('ever_married', mode='before')
-    # @classmethod
-    # def ever_married_validator(cls, v):
-    #     return "Yes" if v == "1" else "No" if v == "0" else v
-
-    # @field_validator('Residence_type', mode='before')
-    # @classmethod
-    # def residence_type_validator(cls, v):
-    #     return "Urban" if v == "1" else "Rural" if v == "0" else v
 class PredictionResponse(BaseModel):
     probability: float
     risk_level: str
@@ -89,56 +64,26 @@ class PredictionResponse(BaseModel):
 
 def convert_to_user(data: PredictionRequest, probability:float) -> User:
     return User(
-        gender= "Male" if data.gender == "1" else "Female",
-        age=float(data.age),
-        hypertension=data.hypertension == "1",
-        heart_disease=data.heart_disease == "1",
-        ever_married="Yes" if data.ever_married == "1" else "No",
-        Residence_type="Urban" if data.Residence_type == "1" else "Rural",
-        avg_glucose_level=float(data.avg_glucose_level),
-        bmi=float(data.bmi),
-        work_type=data.work_type,
-        smoking_status=data.smoking_status,
-        resultado = f"{probability:.6f}"
+        Age=float(data.Age),
+        Sex=float(data.Sex),
+        HighBP=float(data.HighBP),
+        HeartDiseaseorAttack=float(data.HeartDiseaseorAttack),
+        BMI=float(data.BMI),
+        Smoker=float(data.Smoker),
+        Resultado = f"{probability:.6f}"
     )
 
 
 def preprocess_input(data: PredictionRequest) -> np.ndarray:
     """Procesar input del usuario para que coincida con el formato del modelo"""
-    
-    # Convertir strings a números
-    gender = 1 if data.gender == "1" else 0
-    age = float(data.age)
-    hypertension = 1 if data.hypertension == "1" else 0
-    heart_disease = 1 if data.heart_disease == "1" else 0
-    ever_married = 1 if data.ever_married == "1" else 0
-    Residence_type = 1 if data.Residence_type == "1" else 0
-    avg_glucose_level = float(data.avg_glucose_level)
-    bmi_value = float(data.bmi)
-    
-    # Crear el input según el orden de columnas del dataset_encoded.csv
-    input_data = {
-        'gender': gender,
-        'age': age,
-        'hypertension': hypertension,
-        'heart_disease': heart_disease,
-        'ever_married': ever_married,
-        'Residence_type': Residence_type,
-        'avg_glucose_level': avg_glucose_level,
-        'bmi': bmi_value,
-        'work_type_Private': 0.0,
-        'work_type_Self-employed': 0.0,
-        'work_type_children': 0.0,
-        'smoking_status_formerly smoked': 0.0,
-        'smoking_status_never smoked': 0.0,
-        'smoking_status_smokes': 0.0
-    }
-    
-    if f'work_type_{data.work_type}' in input_data:
-        input_data[f'work_type_{data.work_type}'] = 1.0
-    if f'smoking_status_{data.smoking_status}' in input_data:
-        input_data[f'smoking_status_{data.smoking_status}'] = 1.0
-    features = list(input_data.values())
+    features = [
+        float(data.Age),
+        float(data.Sex),
+        float(data.HighBP),
+        float(data.HeartDiseaseorAttack),
+        float(data.BMI),
+        float(data.Smoker)
+    ]
     return np.array([features])
     
 @app.post("/api/predict", response_model=PredictionResponse)
@@ -168,16 +113,16 @@ async def predict_stroke(data: PredictionRequest):
         # Factores de riesgo
         factors = []
         
-        if float(data.age) > 65:
+        if float(data.Age) > 65:
             factors.append("Edad avanzada")
-        if data.hypertension == "1":
+        if float(data.HighBP) == 1:
             factors.append("Hipertensión")
-        if data.heart_disease == "1":
+        if float(data.HeartDiseaseorAttack) == 1:
             factors.append("Enfermedad cardíaca")
-        if float(data.avg_glucose_level) > 126:
-            factors.append("Glucosa elevada")
-        if float(data.bmi) > 30:
+        if float(data.BMI) > 30:
             factors.append("Obesidad")
+        if float(data.Smoker) == 1:
+            factors.append("Fumador")
         
         # Guardar en base de datos
         try:
@@ -199,7 +144,7 @@ async def predict_stroke(data: PredictionRequest):
 @app.get("/users/")
 def get_users():
     try:
-        response = supabase.table("brain_stroke").select("*").order('created_at', desc=True).limit(10).execute()
-        return {"brain_stroke": response.data}
+        response = supabase.table("brainstroke").select("*").order('created_at', desc=True).limit(10).execute()
+        return {"brainstroke": response.data}
     except Exception as e:
-        return {"error": str(e), "brain_stroke": []}
+        return {"error": str(e), "brainstroke": []}
