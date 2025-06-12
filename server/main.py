@@ -134,14 +134,13 @@ def preprocess_input(data: PredictionRequest) -> np.ndarray:
         'smoking_status_smokes': 0.0
     }
     
-    if data.work_type in input_data:
+    if f'work_type_{data.work_type}' in input_data:
         input_data[f'work_type_{data.work_type}'] = 1.0
-    if data.smoking_status in ["formerly smoked", "never smoked", "smokes"]:
+    if f'smoking_status_{data.smoking_status}' in input_data:
         input_data[f'smoking_status_{data.smoking_status}'] = 1.0
-
     features = list(input_data.values())
     return np.array([features])
-
+    
 @app.post("/api/predict", response_model=PredictionResponse)
 async def predict_stroke(data: PredictionRequest):
     if model is None:
