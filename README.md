@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="" alt="Banner centrado" width="900" height="450">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1749820724/Captura_de_pantalla_2025-06-13_151720_gynhuu.png" alt="Banner centrado" width="900" height="450">
 </div>
 
 ## 📌 Index
@@ -136,7 +136,7 @@ Copy the following command to run the tests:
 python -m unittest tests/test_model.py
 ```
 <div align="center">
-  <img src="" alt="test" width="500" height="100">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1749820723/Captura_de_pantalla_2025-06-13_151819_zjarha.png" alt="test" width="500" height="100">
 </div>
 ---
 
