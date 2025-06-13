@@ -10,11 +10,14 @@ import os
 from typing import Optional, List, Dict, Any
 
 app = FastAPI()
+print("\n🚀 Uvicorn escuchando en 0.0.0.0:8000 (dentro del contenedor)")
+print("🌐 Accede desde tu navegador en: ht tp://127.0.0.1:8000\n")
 
 # Configurar CORS para permitir requests desde React
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # URLs de React
+    allow_origins=["http://localhost:5173", "http://localhost:3000",
+    "https://brainstroke-navm-1-front.onrender.com" ],  # URLs de React
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
