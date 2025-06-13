@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import AssessmentForm from './components/AssessmentForm';
 import Results from './components/Results';
 import PredictionHistory from './components/PredictionHistory';
+import About from './components/About';
 import './index.css';
 
 function App() {
@@ -27,9 +28,9 @@ function App() {
     setError(null);
     
     try {
-      console.log('Sending data:', formData); // Debug
+      console.log('Sending data:', formData);
       
-      const response = await fetch('http://localhost:8000/api/predict', {
+      const response = await fetch('http://127.0.0.1:8000/api/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +44,7 @@ function App() {
       }
       
       const data = await response.json();
-      console.log('Received data:', data); // Debug
+      console.log('Received data:', data);
       setResult(data);
       setShowResults(true);
     } catch (error) {
@@ -61,9 +62,14 @@ function App() {
     setError(null);
   };
 
+  // Función para el logo que resetea todo y vuelve al inicio
+  const handleLogoClick = () => {
+    handleReset();
+  };
+
   return (
     <div className="min-h-screen bg-cream-900">
-      <Header />
+      <Header onLogoClick={handleLogoClick} />
       
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mx-4 mt-4">
@@ -80,8 +86,8 @@ function App() {
               loading={loading}
             />
           )}
-          {/* Agregar el historial después del formulario */}
           <PredictionHistory />
+          <About />
         </>
       ) : (
         <div className="py-20">
