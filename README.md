@@ -18,7 +18,7 @@
 - [Collaborators](#-collaborators)  
 ---
 
-##  About the Project
+## 🧠 About the Project
 
 This project focuses on predicting the risk of suffering a stroke using a machine learning model trained on a real-world health dataset. The model analyzes key personal, medical, and lifestyle factors to determine whether an individual is at risk. The goal is to support early detection and prevention by providing fast, data-driven assessments through a user-friendly web interface.
 
