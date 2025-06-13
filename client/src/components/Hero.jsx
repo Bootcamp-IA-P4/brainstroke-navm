@@ -2,10 +2,10 @@ import React from 'react';
 
 const Hero = ({ onStartAssessment }) => {
   return (
-    <section id="home" className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+    <section id="home" className="bg-gradient-to-br from-blue-50 to-mint-800 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-6xl text-gray-900 mb-6">
             Evalúa tu riesgo de
             <span className="text-primary-600"> Accidente Cerebrovascular</span>
           </h1>
@@ -19,9 +19,6 @@ const Hero = ({ onStartAssessment }) => {
               className="btn-primary text-lg px-8 py-3"
             >
               Comenzar Evaluación
-            </button>
-            <button className="btn-secondary text-lg px-8 py-3">
-              Más Información
             </button>
           </div>
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">

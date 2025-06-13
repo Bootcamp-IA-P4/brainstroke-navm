@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FaUser, FaUserTie, FaSync, FaChartLine, FaExclamationTriangle, FaCheckCircle, FaHeartbeat, FaWeight, FaSmoking } from 'react-icons/fa';
+import { MdFemale, MdMale } from 'react-icons/md';
 
 const PredictionHistory = () => {
   const [predictions, setPredictions] = useState([]);
@@ -11,37 +13,70 @@ const PredictionHistory = () => {
 
   const fetchPredictions = async () => {
     try {
+      setLoading(true);
+      console.log('Fetching predictions...');
+      
       const response = await fetch('http://localhost:8000/users/');
+      console.log('Response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error('Error al cargar las predicciones');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      
       const data = await response.json();
-      setPredictions(data.brain_stroke || []);
+      console.log('Received data:', data);
+      
+      const predictionsData = data.brainstroke || [];
+      setPredictions(predictionsData);
+      
     } catch (err) {
+      console.error('Error fetching predictions:', err);
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
+  const getAgeRange = (ageClass) => {
+    const ageRanges = {
+      1: "18-24",
+      2: "25-29", 
+      3: "30-34",
+      4: "35-39",
+      5: "40-44",
+      6: "45-49",
+      7: "50-54",
+      8: "55-59",
+      9: "60-64",
+      10: "65-69",
+      11: "70-74",
+      12: "75-79",
+      13: "80+"
+    };
+    return ageRanges[parseInt(ageClass)] || "N/A";
+  };
+
   const getRiskBadge = (resultado) => {
     const probability = parseFloat(resultado);
     if (probability < 0.3) {
       return (
-        <span className="px-3 py-1 rounded-full text-sm font-medium bg-mint-100 text-mint-700 border border-mint-200">
-          🟢 Bajo
+        <span className="px-3 py-1 rounded-full text-sm font-medium bg-mint-100 text-mint-700 border border-mint-200 flex items-center gap-1">
+          <FaCheckCircle className="text-xs" />
+          Bajo
         </span>
       );
     } else if (probability < 0.7) {
       return (
-        <span className="px-3 py-1 rounded-full text-sm font-medium bg-cream-300 text-cream-100 border border-cream-400">
-          🟡 Moderado
+        <span className="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-700 border border-yellow-200 flex items-center gap-1">
+          <FaExclamationTriangle className="text-xs" />
+          Moderado
         </span>
       );
     } else {
       return (
-        <span className="px-3 py-1 rounded-full text-sm font-medium bg-lapis_lazuli-100 text-lapis_lazuli-700 border border-lapis_lazuli-200">
-          🔴 Alto
+        <span className="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-700 border border-red-200 flex items-center gap-1">
+          <FaExclamationTriangle className="text-xs" />
+          Alto
         </span>
       );
     }
@@ -82,7 +117,16 @@ const PredictionHistory = () => {
               Historial de Predicciones
             </h2>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-700">❌ Error: {error}</p>
+              <p className="text-red-700">
+                <FaExclamationTriangle className="inline mr-2" />
+                Error: {error}
+              </p>
+              <button 
+                onClick={fetchPredictions}
+                className="mt-4 btn-secondary"
+              >
+                Reintentar
+              </button>
             </div>
           </div>
         </div>
@@ -94,8 +138,9 @@ const PredictionHistory = () => {
     <section id="history" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-lapis_lazuli-600 mb-4">
-            📊 Historial de Predicciones
+          <h2 className="text-3xl font-bold text-lapis_lazuli-600 mb-4 flex items-center justify-center gap-3">
+            <FaChartLine className="text-teal-600" />
+            Historial de Predicciones
           </h2>
           <p className="text-teal-600 text-lg">
             Últimas evaluaciones realizadas con nuestro modelo de IA
@@ -105,7 +150,7 @@ const PredictionHistory = () => {
         {predictions.length === 0 ? (
           <div className="text-center">
             <div className="card">
-              <div className="text-6xl mb-4">📋</div>
+              <FaChartLine className="text-6xl text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-lapis_lazuli-600 mb-2">
                 No hay predicciones aún
               </h3>
@@ -144,38 +189,59 @@ const PredictionHistory = () => {
                   {predictions.slice(0, 10).map((prediction, index) => (
                     <tr key={prediction.id || index} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {formatDate(prediction.created_at)}
+                        {formatDate(prediction.Created_at)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {prediction.age} años
+                        {getAgeRange(prediction.Age)} años
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {prediction.gender === "1" ? "👩 Femenino" : "👨 Masculino"}
+                        <div className="flex items-center gap-1">
+                          {prediction.Sex == "1" || prediction.Sex == 1 ? (
+                            <>
+                              <MdFemale className="text-pink-500" />
+                              Femenino
+                            </>
+                          ) : (
+                            <>
+                              <MdMale className="text-blue-500" />
+                              Masculino
+                            </>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div className="flex flex-wrap gap-1">
-                          {prediction.hypertension && (
-                            <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
+                          {prediction.HighBP == 1 && (
+                            <span className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded flex items-center gap-1">
+                              <FaHeartbeat className="text-xs" />
                               HTA
                             </span>
                           )}
-                          {prediction.heart_disease && (
-                            <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded">
+                          {prediction.HeartDiseaseorAttack == 1 && (
+                            <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded flex items-center gap-1">
+                              <FaHeartbeat className="text-xs" />
                               Cardíaco
                             </span>
                           )}
-                          {prediction.bmi > 30 && (
-                            <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">
+                          {prediction.BMI > 30 && (
+                            <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded flex items-center gap-1">
+                              <FaWeight className="text-xs" />
                               Obesidad
+                            </span>
+                          )}
+                          {prediction.Smoker == 1 && (
+                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded flex items-center gap-1">
+                              <FaSmoking className="text-xs" />
+                              Fumador
                             </span>
                           )}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {(parseFloat(prediction.resultado) * 100).toFixed(1)}%
+                        {(parseFloat(prediction.Resultado) * 100).toFixed(1)}%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {getRiskBadge(prediction.resultado)}
+                        {getRiskBadge(prediction.Resultado)}
                       </td>
                     </tr>
                   ))}
@@ -196,9 +262,10 @@ const PredictionHistory = () => {
         <div className="mt-8 text-center">
           <button 
             onClick={fetchPredictions}
-            className="btn-secondary"
+            className="btn-secondary flex items-center gap-2 mx-auto"
           >
-            🔄 Actualizar Datos
+            <FaSync className="text-sm" />
+            Actualizar Datos
           </button>
         </div>
       </div>
