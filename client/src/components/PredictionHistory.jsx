@@ -15,8 +15,8 @@ const PredictionHistory = () => {
     try {
       setLoading(true);
       console.log('Fetching predictions...');
-      
-      const response = await fetch('http://localhost:8000/users/');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${apiUrl}/users/`);
       console.log('Response status:', response.status);
       
       if (!response.ok) {
