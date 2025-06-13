@@ -11,3 +11,4 @@ fastapi
 seaborn
 joblib
 pydantic
+xgboost

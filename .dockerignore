@@ -1,0 +1,29 @@
+# Node modules y artefactos de dependencias
+node_modules
+dist
+.vite
+.env
+*.log
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de control de versiones
+.git
+.gitignore
+
+# Archivos de editor
+.vscode
+.idea
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Docker
+dockerfile
+docker-compose.yaml
