@@ -10,6 +10,8 @@ import os
 from typing import Optional, List, Dict, Any
 
 app = FastAPI()
+print("\n🚀 Uvicorn escuchando en 0.0.0.0:8000 (dentro del contenedor)")
+print("🌐 Accede desde tu navegador en: ht tp://127.0.0.1:8000\n")
 
 # Configurar CORS para permitir requests desde React
 app.add_middleware(
