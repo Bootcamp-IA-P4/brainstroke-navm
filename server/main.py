@@ -76,14 +76,17 @@ def convert_to_user(data: PredictionRequest, probability:float) -> User:
 
 def preprocess_input(data: PredictionRequest) -> np.ndarray:
     """Procesar input del usuario para que coincida con el formato del modelo"""
+
     features = [
-        float(data.Age),
-        float(data.Sex),
-        float(data.HighBP),
-        float(data.HeartDiseaseorAttack),
-        float(data.BMI),
-        float(data.Smoker)
+        float(data.Age),        # Edad
+        float(data.Sex),        # Género (0=Masculino, 1=Femenino)
+        float(data.HighBP),     # Hipertensión (0=No, 1=Sí)
+        float(data.HeartDiseaseorAttack),  # Enfermedad cardíaca (0=No, 1=Sí)
+        float(data.BMI),        # Índice de masa corporal
+        float(data.Smoker)      # Fumador (0=No, 1=Sí)
     ]
+    
+    print(f"🔍 Input features (Age, Sex, HighBP, HeartDisease, BMI, Smoker): {features}")
     return np.array([features])
     
 @app.post("/api/predict", response_model=PredictionResponse)
@@ -144,7 +147,7 @@ async def predict_stroke(data: PredictionRequest):
 @app.get("/users/")
 def get_users():
     try:
-        response = supabase.table("brainstroke").select("*").order('created_at', desc=True).limit(10).execute()
+        response = supabase.table("brainstroke").select("*").order('Created_at', desc=True).limit(10).execute()
         return {"brainstroke": response.data}
     except Exception as e:
         return {"error": str(e), "brainstroke": []}

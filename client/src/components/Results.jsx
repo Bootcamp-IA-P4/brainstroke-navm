@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaCheckCircle, FaExclamationTriangle, FaExclamationCircle, FaRedo, FaDownload, FaHeartbeat } from 'react-icons/fa';
 
 const Results = ({ result, onReset }) => {
   const getRiskLevel = (probability) => {
@@ -6,19 +7,19 @@ const Results = ({ result, onReset }) => {
       level: 'Bajo', 
       color: 'text-mint-700', 
       bg: 'bg-mint-50 border-mint-200',
-      icon: '✅'
+      icon: <FaCheckCircle className="text-6xl text-mint-600" />
     };
     if (probability < 0.7) return { 
       level: 'Moderado', 
       color: 'text-cream-100', 
       bg: 'bg-cream-300 border-cream-400',
-      icon: '⚠️'
+      icon: <FaExclamationTriangle className="text-6xl text-orange-500" />
     };
     return { 
       level: 'Alto', 
       color: 'text-lapis_lazuli-700', 
       bg: 'bg-lapis_lazuli-50 border-lapis_lazuli-200',
-      icon: '🚨'
+      icon: <FaExclamationCircle className="text-6xl text-red-600" />
     };
   };
 
@@ -37,7 +38,7 @@ const Results = ({ result, onReset }) => {
         </div>
 
         <div className={`${risk.bg} border-2 rounded-xl p-8 mb-6 text-center`}>
-          <div className="text-6xl mb-4">{risk.icon}</div>
+          <div className="mb-4 flex justify-center">{risk.icon}</div>
           <div className="text-5xl font-bold mb-2 text-gradient">
             {(result.probability * 100).toFixed(1)}%
           </div>
@@ -51,7 +52,7 @@ const Results = ({ result, onReset }) => {
 
         <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6 mb-6">
           <h4 className="font-semibold text-teal-800 mb-3 flex items-center gap-2">
-            <span className="text-xl">⚠️</span>
+            <FaExclamationTriangle className="text-xl text-orange-500" />
             Importante
           </h4>
           <p className="text-teal-700 leading-relaxed">
@@ -64,12 +65,14 @@ const Results = ({ result, onReset }) => {
         <div className="space-y-4">
           <button 
             onClick={onReset}
-            className="btn-primary w-full text-lg py-4"
+            className="btn-primary w-full text-lg py-4 flex items-center justify-center gap-2"
           >
-            🔄 Realizar Nueva Evaluación
+            <FaRedo />
+            Realizar Nueva Evaluación
           </button>
-          <button className="btn-secondary w-full text-lg py-4">
-            📄 Descargar Reporte
+          <button className="btn-secondary w-full text-lg py-4 flex items-center justify-center gap-2">
+            <FaDownload />
+            Descargar Reporte
           </button>
         </div>
       </div>
