@@ -15,8 +15,8 @@ const PredictionHistory = () => {
     try {
       setLoading(true);
       console.log('Fetching predictions...');
-      
-      const response = await fetch('http://localhost:8000/users/');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${apiUrl}/users/`);
       console.log('Response status:', response.status);
       
       if (!response.ok) {
@@ -113,7 +113,7 @@ const PredictionHistory = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-lapis_lazuli-600 mb-4">
+            <h2 className="text-3xl  text-lapis_lazuli-600 mb-4">
               Historial de Predicciones
             </h2>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -138,7 +138,7 @@ const PredictionHistory = () => {
     <section id="history" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-lapis_lazuli-600 mb-4 flex items-center justify-center gap-3">
+          <h2 className="text-3xl  text-lapis_lazuli-600 mb-4 flex items-center justify-center gap-3">
             <FaChartLine className="text-teal-600" />
             Historial de Predicciones
           </h2>
