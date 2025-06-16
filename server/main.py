@@ -39,7 +39,7 @@ cloudinary.config(
 # Cargar Modelo PyTorch
 
 def load_pytorch_model():
-    pth_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'model.pth')
+    pth_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'model2.pth')
     model = torch.load(pth_path, map_location=torch.device('cpu'), weights_only=False)
     model.eval()
     return model
