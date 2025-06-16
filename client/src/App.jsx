@@ -5,9 +5,12 @@ import AssessmentForm from './components/AssessmentForm';
 import Results from './components/Results';
 import PredictionHistory from './components/PredictionHistory';
 import About from './components/About';
+import Footer from './components/Footer';
+import ImageAnalysisPage from './components/ImageAnalysisPage';
 import './index.css';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home'); // 'home', 'data-analysis', 'image-analysis'
   const [showAssessment, setShowAssessment] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,12 +18,19 @@ function App() {
   const [error, setError] = useState(null);
 
   const handleStartAssessment = () => {
+    setCurrentPage('data-analysis');
     setShowAssessment(true);
     setTimeout(() => {
       document.getElementById('assessment')?.scrollIntoView({ 
         behavior: 'smooth' 
       });
     }, 100);
+  };
+
+  const handleStartImageAnalysis = () => {
+    setCurrentPage('image-analysis');
+    // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSubmitAssessment = async (formData) => {
@@ -57,24 +67,52 @@ function App() {
   };
 
   const handleReset = () => {
+    setCurrentPage('home');
     setShowAssessment(false);
     setShowResults(false);
     setResult(null);
     setError(null);
+    // Scroll suave al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Función para el logo que resetea todo y vuelve al inicio
   const handleLogoClick = () => {
     handleReset();
   };
 
+  // Renderizar página de análisis por imagen
+  if (currentPage === 'image-analysis') {
+    return (
+      <div className="min-h-screen bg-cream-900">
+        <Header 
+          onLogoClick={handleLogoClick} 
+          onStartAssessment={handleStartAssessment}
+          onStartImageAnalysis={handleStartImageAnalysis}
+        />
+        <ImageAnalysisPage onReset={handleReset} />
+        <Footer onLogoClick={handleLogoClick} />
+      </div>
+    );
+  }
+
+  // Página principal con análisis por datos
   return (
     <div className="min-h-screen bg-cream-900">
-      <Header onLogoClick={handleLogoClick} />
+      <Header 
+        onLogoClick={handleLogoClick} 
+        onStartAssessment={handleStartAssessment}
+        onStartImageAnalysis={handleStartImageAnalysis}
+      />
       
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mx-4 mt-4">
           {error}
+          <button 
+            onClick={() => setError(null)}
+            className="float-right text-red-700 hover:text-red-900"
+          >
+            ×
+          </button>
         </div>
       )}
       
@@ -95,6 +133,8 @@ function App() {
           <Results result={result} onReset={handleReset} />
         </div>
       )}
+      
+      <Footer onLogoClick={handleLogoClick} />
     </div>
   );
 }
