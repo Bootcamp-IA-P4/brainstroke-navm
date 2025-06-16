@@ -10,7 +10,6 @@ import os
 from typing import Dict, Any
 import cloudinary
 import cloudinary.uploader
-import os
 import io
 import torch
 from torchvision import transforms
