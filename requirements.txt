@@ -12,3 +12,6 @@ seaborn
 joblib
 pydantic
 xgboost
+torch
+torchvision
+cloudinary
