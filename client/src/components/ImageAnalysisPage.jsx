@@ -17,9 +17,9 @@ const ImageAnalysisPage = ({ onReset }) => {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
       const formData = new FormData();
-      formData.append('image', imageFile);
+      formData.append('file', imageFile);
 
-      const response = await fetch(`${apiUrl}/api/predict-image`, {
+      const response = await fetch(`${apiUrl}/api/predict_image`, {
         method: 'POST',
         body: formData,
       });
