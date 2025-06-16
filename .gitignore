@@ -6,8 +6,7 @@ mlartifacts/
 *.bak
 .env.production
 client/node_modules
-model/model4.pkl
-model/model2.pkl
+
 # === Python general ===
 __pycache__/
 *.py[cod]
