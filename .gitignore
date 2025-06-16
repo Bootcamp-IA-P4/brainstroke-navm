@@ -26,7 +26,6 @@ venv/
 *.env
 .env.production
 
-
 # === Archivos grandes / temporales ===
 .DS_Store
 *.tmp
