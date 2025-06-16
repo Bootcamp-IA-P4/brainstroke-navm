@@ -6,7 +6,7 @@ mlartifacts/
 *.bak
 .env.production
 client/node_modules
-
+data2/
 # === Python general ===
 __pycache__/
 *.py[cod]
@@ -36,3 +36,4 @@ venv/
 
 # === Modelos guardados ===
 outputs/
+*.best_model.pt
