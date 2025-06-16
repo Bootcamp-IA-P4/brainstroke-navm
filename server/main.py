@@ -13,7 +13,9 @@ import cloudinary.uploader
 import os
 import io
 import torch
-from torchvision import transforms, models
+from torchvision import transforms
+from torchvision.models.mobilenetv2 import MobileNetV2
+torch.serialization.add_safe_globals([MobileNetV2])
 from PIL import Image
 
 app = FastAPI()
@@ -38,10 +40,8 @@ cloudinary.config(
 # Cargar Modelo PyTorch
 
 def load_pytorch_model():
-    model = models.mobilenet_v2(pretrained=False)
-    model.classifier[1] = torch.nn.Linear(model.last_channel, 3)  # 3 clases: Bleeding, Ischemia, Normal
     pth_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'model.pth')
-    model.load_state_dict(torch.load(pth_path, map_location=torch.device('cpu')))
+    model = torch.load(pth_path, map_location=torch.device('cpu'), weights_only=False)
     model.eval()
     return model
 
@@ -218,7 +218,7 @@ async def predict_image(file: UploadFile = File(...)):
             "clase_predicha": clase_predicha,
             "confianza": confianza,
         }
-        supabase.table("brainstroke_images").insert(data_dict).execute()
+        # supabase.table("brainstroke_images").insert(data_dict).execute()
         return {
             "clase_predicha": clase_predicha,
             "confianza": confianza,
