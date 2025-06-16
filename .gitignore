@@ -4,8 +4,8 @@ mlartifacts/
 *.db
 *.log
 *.bak
-data2/
-External_Test/
+.env.production
+client/node_modules
 
 # === Python general ===
 __pycache__/
