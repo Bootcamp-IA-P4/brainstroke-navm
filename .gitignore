@@ -22,6 +22,7 @@ venv/
 # === Archivos de configuración secretos ===
 .env
 *.env
+.env.production
 
 # === Archivos grandes / temporales ===
 .DS_Store
