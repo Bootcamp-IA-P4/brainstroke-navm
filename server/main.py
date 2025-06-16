@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, field_validator
 from server.database.save_user import save_user
@@ -7,7 +7,14 @@ import joblib
 import pandas as pd
 import numpy as np
 import os
-from typing import Optional, List, Dict, Any
+from typing import Dict, Any
+import cloudinary
+import cloudinary.uploader
+import os
+import io
+import torch
+from torchvision import transforms, models
+from PIL import Image
 
 app = FastAPI()
 print("\n🚀 Uvicorn escuchando en 0.0.0.0:8000 (dentro del contenedor)")
@@ -21,6 +28,33 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# Cloudinary
+
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
+)
+# Cargar Modelo PyTorch
+
+def load_pytorch_model():
+    model = models.mobilenet_v2(pretrained=False)
+    model.classifier[1] = torch.nn.Linear(model.last_channel, 3)  # 3 clases: Bleeding, Ischemia, Normal
+    pth_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'model.pth')
+    model.load_state_dict(torch.load(pth_path, map_location=torch.device('cpu')))
+    model.eval()
+    return model
+
+pytorch_model = load_pytorch_model()
+
+# Transformación igual que en el entrenamiento
+image_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+])
+
+CLASSES = ['Bleeding', 'Ischemia', 'Normal']
 
 # Cargar el modelo ML al iniciar la aplicación
 try:
@@ -153,3 +187,42 @@ def get_users():
         return {"brainstroke": response.data}
     except Exception as e:
         return {"error": str(e), "brainstroke": []}
+    
+
+
+# API modelo pytorch para predecir imagenes
+
+@app.post("/api/predict_image")
+async def predict_image(file: UploadFile = File(...)):
+    try:
+        image_bytes = await file.read()
+        upload_result = cloudinary.uploader.upload(
+            io.BytesIO(image_bytes),
+            folder="BrainStroke"
+        )
+        image_url = upload_result["secure_url"]
+        print(f"Image uploaded to Cloudinary: {image_url}")
+
+        image = Image.open(io.BytesIO(image_bytes)).convert('RGB')
+        image_t = image_transform(image).unsqueeze(0)
+
+        with torch.no_grad():
+            output = pytorch_model(image_t)
+            probs = torch.softmax(output, dim=1)
+            pred_idx = probs.argmax(dim=1).item()
+            confianza = probs[0, pred_idx].item()
+            clase_predicha = CLASSES[pred_idx]
+
+        data_dict = {
+            "image_url": image_url,
+            "clase_predicha": clase_predicha,
+            "confianza": confianza,
+        }
+        supabase.table("brainstroke_images").insert(data_dict).execute()
+        return {
+            "clase_predicha": clase_predicha,
+            "confianza": confianza,
+            "image_url": image_url
+        }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error en la predicción de imagen: {str(e)}")
