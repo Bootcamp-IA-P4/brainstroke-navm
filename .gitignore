@@ -4,6 +4,11 @@ mlartifacts/
 *.db
 *.log
 *.bak
+data2/
+External_Test/
+*.dcm
+*.png
+*.jpg
 
 # === Python general ===
 __pycache__/
