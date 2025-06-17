@@ -10,7 +10,7 @@
 - [Possible Improvements](#-possible-improvements)  
 - [Architecture Diagram](#-architecture-diagram)  
 - [Installation and Usage](#-installation-and-usage)
-- [Model Performance & Hyperparameters](#-model-performance-&-hyperparameters)
+- [Model Performance: XGBoost & Neural Network](#-model-performance-xgboost--neural-network)
 - [Testing](#-testing)
 - [Demo](#-demo)
 - [Render Deployment](#-render-deployment)
@@ -123,10 +123,35 @@ npm run dev
 ```
 ---
 
-## 📊 Model Performance & Hyperparameters
+## 📊 Model Performance: XGBoost & Neural Network
 
+### 🔸 XGBoost Classifier
+- **Type**: Binary Classification  
+- **Target**: Predict stroke risk based on tabular health data  
+- **Framework**: `scikit-learn`, `xgboost`  
+- **Performance**:
+  <div align="center">
+    <img src="https://res.cloudinary.com/artevivo/image/upload/v1750151134/Captura_de_pantalla_2025-06-17_110521_ifjiae.png" alt="XGBoost Metrics" width="600" height="200">
+  </div>
+
+---
+
+### 🔸 Neural Network (MobileNetV2 - Transfer Learning)
+- **Type**: Convolutional Neural Network (CNN)  
+- **Task**: Multiclass classification of brain CT images  
+- **Classes**: Bleeding, Ischemia, Normal  
+- **Input**: 224x224 RGB images  
+- **Base Model**: Pretrained `MobileNetV2`  
+- **Final Layer**: `nn.Linear(model.last_channel, 3)`  
+- **Loss Function**: `CrossEntropyLoss`  
+- **Optimizer**: `Adam (lr=1e-4)`  
+- **Epochs**: 6  
+- **Dataset**: Custom-labeled CT image dataset  
+- **Model File**: `model/model2.pth`
+
+#### 📉 :
 <div align="center">
-  <img src="" alt="Metrics" width="800" height="350">
+  <img src="" alt="" width="400" height="120">
 </div>
 ---
 
