@@ -92,7 +92,7 @@ This project focuses on predicting the risk of suffering a stroke using a machin
 
 ## 🧠 Architecture Diagram
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750155063/BrainStroke_bkhsgw.jpg" alt="Diagrama de arquitectura" width="400" height="420">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750155063/BrainStroke_bkhsgw.jpg" alt="Diagrama de arquitectura" width="500" height="420">
 </div>
 ---
 
@@ -151,7 +151,7 @@ npm run dev
 
 #### 📉 :
 <div align="center">
-  <img src="" alt="" width="400" height="120">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750155887/Captura_de_pantalla_2025-06-17_122408_zzyak7.png" alt="" width="600" height="200">
 </div>
 ---
 
