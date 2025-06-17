@@ -81,7 +81,7 @@ const ImageResults = ({ result, onReset, onBackToUpload }) => {
         <div className={`${classificationInfo.bg} border-2 rounded-xl p-8 mb-6 text-center`}>
           <div className="mb-4 flex justify-center">{classificationInfo.icon}</div>
           
-          <div className="text-4xl font- mb-2 text-gradient">
+          <div className="text-4xl font-bold mb-2 text-gradient">
             {classificationInfo.type}
           </div>
           
