@@ -30,11 +30,15 @@ const ImageAnalysisPage = ({ onReset }) => {
       }
       
       const data = await response.json();
-      console.log('Received data:', data);
+      console.log('✅ Received data from backend:', data);
+      console.log('📊 Clase predicha:', data.clase_predicha);
+      console.log('🎯 Confianza:', data.confianza);
+      console.log('🖼️ Image URL:', data.image_url);
+      
       setResult(data);
       setShowResults(true);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('❌ Error:', error);
       setError(`Error: ${error.message}`);
     } finally {
       setLoading(false);
