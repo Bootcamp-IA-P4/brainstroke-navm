@@ -197,11 +197,11 @@ const AssessmentForm = ({ onSubmit, loading }) => {
             </div>
 
             <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6 mt-8">
-              <h4 className="font-semibold text-teal-800 mb-3 flex items-center gap-2">
-                <FaExclamationTriangle className="text-teal-600" />
+              <h4 className=" text-teal-400 mb-3 flex items-center gap-2">
+                <FaExclamationTriangle className="text-teal-400" />
                 Información importante
               </h4>
-              <ul className="text-teal-700 text-sm space-y-1">
+              <ul className="text-teal-200 text-sm space-y-1">
                 <li>• Esta evaluación es solo informativa y no reemplaza la consulta médica</li>
                 <li>• Los resultados se basan en algoritmos de inteligencia artificial</li>
                 <li>• Consulte siempre con un profesional de la salud</li>
