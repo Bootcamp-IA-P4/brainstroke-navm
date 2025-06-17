@@ -136,7 +136,7 @@ Copy the following command to run the tests:
 python -m unittest tests/test_model.py
 ```
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1749820723/Captura_de_pantalla_2025-06-13_151819_zjarha.png" alt="test" width="500" height="100">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750150979/Captura_de_pantalla_2025-06-17_110218_puakwm.png" alt="test" width="500" height="100">
 </div>
 ---
 
