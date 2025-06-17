@@ -36,5 +36,26 @@ class TestAPI(unittest.TestCase):
         response = client.post("/api/predict_image", files=files)
         self.assertIn(response.status_code, (200, 400))
 
+    def test_predict_missing_field(self):
+        data = {
+            "Age": "45",
+            "Sex": "1",
+            "HighBP": "0",
+            "HeartDiseaseorAttack": "0",
+            "BMI": "25"
+            # Falta "Smoker" y "Resultado"
+        }
+        response = client.post("/api/predict", json=data)
+        self.assertEqual(response.status_code, 422)
+
+    def test_predict_image_no_file(self):
+        response = client.post("/api/predict_image", files={})
+        self.assertEqual(response.status_code, 422)
+
+    def test_predict_image_wrong_filetype(self):
+        files = {"file": ("test.txt", io.BytesIO(b"not an image"), "text/plain")}
+        response = client.post("/api/predict_image", files=files)
+        self.assertIn(response.status_code, (400, 422))
+        
 if __name__ == '__main__':
     unittest.main()

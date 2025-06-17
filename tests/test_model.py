@@ -5,13 +5,8 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-<<<<<<< HEAD
-model_path = os.path.join('models', 'model.pkl')
-data_path = os.path.join('data', 'dataset_encoded.csv')
-=======
 model_path = os.path.join('model', 'modelo_xgb_f.pkl')
 data_path = os.path.join('data', 'csv_final.csv')
->>>>>>> 2e8d4fa057bafa561c60ad4efa1149a98f6f0843
 
 class TestModel(unittest.TestCase):
     def setUp(self):
@@ -22,23 +17,27 @@ class TestModel(unittest.TestCase):
 
     def test_predictino_shape(self):
         df = pd.read_csv(data_path)
-        X = df.drop(columns=['stroke'])
+        X = df.drop(columns=['Stroke'])
         y_pred = self.model.predict(X)
         self.assertEqual(len(y_pred), len(X), "Prediction should match the number of input samples.")
 
     def test_prediction_values(self):
         df = pd.read_csv(data_path)
-        X = df.drop(columns=['stroke'])
+        X = df.drop(columns=['Stroke'])
         y_pred = self.model.predict(X)
         self.assertTrue(set(y_pred).issubset({0, 1}), "La predicción debería tener 0 o 1")
 
     def test_minimum_accuracy(self):
         df = pd.read_csv(data_path)
-        X = df.drop(columns=['stroke'])
-        y = df['stroke']
+        X = df.drop(columns=['Stroke'])
+        y = df['Stroke']
         y_pred = self.model.predict(X)
         accuracy = accuracy_score(y, y_pred)
         self.assertGreaterEqual(accuracy, 0.7, "La precisión del modelo debería ser al menos 70%.")
+
+    def test_no_nulls(self):
+        df = pd.read_csv(data_path)
+        self.assertFalse(df.isnull().values.any(), "El Dataset contiene valores nulos.")
 
 if __name__ == '__main__':
     unittest.main()
