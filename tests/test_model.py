@@ -5,8 +5,13 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
+<<<<<<< HEAD
 model_path = os.path.join('models', 'model.pkl')
 data_path = os.path.join('data', 'dataset_encoded.csv')
+=======
+model_path = os.path.join('model', 'modelo_xgb_f.pkl')
+data_path = os.path.join('data', 'csv_final.csv')
+>>>>>>> 2e8d4fa057bafa561c60ad4efa1149a98f6f0843
 
 class TestModel(unittest.TestCase):
     def setUp(self):

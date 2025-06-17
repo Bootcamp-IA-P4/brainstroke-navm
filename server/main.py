@@ -58,7 +58,7 @@ CLASSES = ['Bleeding', 'Ischemia', 'Normal']
 
 # Cargar el modelo ML al iniciar la aplicación
 try:
-    model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'modelo_xgb.pkl')
+    model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'modelo_xgb_f.pkl')
     model = joblib.load(model_path)
     print("✅ Modelo cargado exitosamente!")
 except Exception as e:
@@ -210,15 +210,15 @@ async def predict_image(file: UploadFile = File(...)):
             output = pytorch_model(image_t)
             probs = torch.softmax(output, dim=1)
             pred_idx = probs.argmax(dim=1).item()
-            confianza = probs[0, pred_idx].item()
+            confianza = round(probs[0, pred_idx].item(), 3)
             clase_predicha = CLASSES[pred_idx]
 
         data_dict = {
-            "image_url": image_url,
             "clase_predicha": clase_predicha,
             "confianza": confianza,
+            "image_url": image_url,
         }
-        # supabase.table("brainstroke_images").insert(data_dict).execute()
+        supabase.table("BrainStroke").insert(data_dict).execute()
         return {
             "clase_predicha": clase_predicha,
             "confianza": confianza,
