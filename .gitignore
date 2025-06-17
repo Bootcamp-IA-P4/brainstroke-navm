@@ -7,6 +7,9 @@ mlartifacts/
 .env.production
 client/node_modules
 data2/
+*.best_model.pt
+venv-gpu/
+
 # === Python general ===
 __pycache__/
 *.py[cod]
