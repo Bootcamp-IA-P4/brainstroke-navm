@@ -92,7 +92,7 @@ This project focuses on predicting the risk of suffering a stroke using a machin
 
 ## 🧠 Architecture Diagram
 <div align="center">
-  <img src="" alt="Banner centrado" width="900" height="400">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750155063/BrainStroke_bkhsgw.jpg" alt="Diagrama de arquitectura" width="400" height="420">
 </div>
 ---
 
@@ -158,7 +158,7 @@ npm run dev
 ## 🧐 Testing
 Copy the following command to run the tests:
 ```bash
-python -m unittest tests/test_model.py
+python -m unittest discover
 ```
 <div align="center">
   <img src="https://res.cloudinary.com/artevivo/image/upload/v1750150979/Captura_de_pantalla_2025-06-17_110218_puakwm.png" alt="test" width="500" height="100">
