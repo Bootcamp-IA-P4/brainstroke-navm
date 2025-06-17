@@ -109,7 +109,7 @@ const ImageUpload = ({ onSubmit, loading, onReset }) => {
               {!previewUrl ? (
                 <>
                   <FaImage className="text-6xl text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                  <h3 className="text-xl text-gray-700 mb-2">
                     Arrastra tu imagen aquí
                   </h3>
                   <p className="text-gray-500 mb-4">
@@ -159,7 +159,7 @@ const ImageUpload = ({ onSubmit, loading, onReset }) => {
 
             {/* Información importante */}
             <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6">
-              <h4 className="font-semibold text-teal-800 mb-3 flex items-center gap-2">
+              <h4 className=" text-teal-800 mb-3 flex items-center gap-2">
                 <FaExclamationTriangle className="text-teal-200" />
                 Información importante
               </h4>

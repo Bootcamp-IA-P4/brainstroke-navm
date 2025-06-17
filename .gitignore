@@ -36,10 +36,8 @@ venv/
 # *.csv
 *.tsv
 *.parquet
-*.pkl
 *.joblib
 
 # === Modelos guardados ===
-models/
 outputs/
 node_modules/

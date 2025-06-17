@@ -37,25 +37,6 @@ const PredictionHistory = () => {
     }
   };
 
-  const getAgeRange = (ageClass) => {
-    const ageRanges = {
-      1: "18-24",
-      2: "25-29", 
-      3: "30-34",
-      4: "35-39",
-      5: "40-44",
-      6: "45-49",
-      7: "50-54",
-      8: "55-59",
-      9: "60-64",
-      10: "65-69",
-      11: "70-74",
-      12: "75-79",
-      13: "80+"
-    };
-    return ageRanges[parseInt(ageClass)] || "N/A";
-  };
-
   const getRiskBadge = (resultado) => {
     const probability = parseFloat(resultado);
     if (probability < 0.3) {
@@ -113,7 +94,7 @@ const PredictionHistory = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl  text-lapis_lazuli-600 mb-4">
+            <h2 className="text-3xl font-caprasimo text-lapis_lazuli-600 mb-4">
               Historial de Predicciones
             </h2>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -138,7 +119,7 @@ const PredictionHistory = () => {
     <section id="history" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl  text-lapis_lazuli-600 mb-4 flex items-center justify-center gap-3">
+          <h2 className="text-3xl font-caprasimo text-lapis_lazuli-600 mb-4 flex items-center justify-center gap-3">
             <FaChartLine className="text-teal-600" />
             Historial de Predicciones
           </h2>
@@ -151,7 +132,7 @@ const PredictionHistory = () => {
           <div className="text-center">
             <div className="card">
               <FaChartLine className="text-6xl text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-lapis_lazuli-600 mb-2">
+              <h3 className="text-xl  text-lapis_lazuli-600 mb-2">
                 No hay predicciones aún
               </h3>
               <p className="text-gray-600">
@@ -191,8 +172,9 @@ const PredictionHistory = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {formatDate(prediction.Created_at)}
                       </td>
+                      {/* ACTUALIZADO: Mostrar edad directamente sin conversión */}
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {getAgeRange(prediction.Age)} años
+                        {prediction.Age} años
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div className="flex items-center gap-1">

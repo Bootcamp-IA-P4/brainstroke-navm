@@ -140,7 +140,7 @@ const Header = ({ onLogoClick, onStartAssessment, onStartImageAnalysis }) => {
 
               <a 
                 href="#history" 
-                className="block px-4 py-3 text-lapis_lazuli-600 hover:text-mint-600 transition-colors flex items-center gap-3 text-lg"
+                className=" px-4 py-3 text-lapis_lazuli-600 hover:text-mint-600 transition-colors flex items-center gap-3 text-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FaChartLine className="text-base" />
@@ -148,7 +148,7 @@ const Header = ({ onLogoClick, onStartAssessment, onStartImageAnalysis }) => {
               </a>
               <a 
                 href="#about" 
-                className="block px-4 py-3 text-lapis_lazuli-600 hover:text-mint-600 transition-colors flex items-center gap-3 text-lg"
+                className=" px-4 py-3 text-lapis_lazuli-600 hover:text-mint-600 transition-colors flex items-center gap-3 text-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FaInfoCircle className="text-base" />
