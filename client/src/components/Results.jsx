@@ -29,7 +29,7 @@ const Results = ({ result, onReset }) => {
     <div className="max-w-2xl mx-auto px-4 py-8 fade-in">
       <div className="card slide-up">
         <div className="mb-6 text-center">
-          <h3 className="text-3xl font-bold text-lapis_lazuli-600 mb-2">
+          <h3 className="text-3xl text-lapis_lazuli-600 mb-2">
             Resultado de la Evaluación
           </h3>
           <p className="text-teal-600 text-lg">
@@ -39,10 +39,10 @@ const Results = ({ result, onReset }) => {
 
         <div className={`${risk.bg} border-2 rounded-xl p-8 mb-6 text-center`}>
           <div className="mb-4 flex justify-center">{risk.icon}</div>
-          <div className="text-5xl font-bold mb-2 text-gradient">
+          <div className="text-5xl  mb-2 text-gradient">
             {(result.probability * 100).toFixed(1)}%
           </div>
-          <div className={`text-2xl font-semibold ${risk.color} mb-2`}>
+          <div className={`text-2xl  ${risk.color} mb-2`}>
             Riesgo {risk.level}
           </div>
           <p className="text-lapis_lazuli-400 text-lg">
@@ -51,11 +51,11 @@ const Results = ({ result, onReset }) => {
         </div>
 
         <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6 mb-6">
-          <h4 className="font-semibold text-teal-800 mb-3 flex items-center gap-2">
+          <h4 className=" text-teal-200 mb-3 flex items-center gap-2">
             <FaExclamationTriangle className="text-xl text-orange-500" />
             Importante
           </h4>
-          <p className="text-teal-700 leading-relaxed">
+          <p className="text-teal-300 leading-relaxed">
             Este resultado es solo una evaluación preliminar basada en IA. 
             No reemplaza el diagnóstico médico profesional. Consulte con su médico 
             para una evaluación completa.

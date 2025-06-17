@@ -5,7 +5,7 @@ import { MdFemale, MdMale } from 'react-icons/md';
 const AssessmentForm = ({ onSubmit, loading }) => {
   const [formData, setFormData] = useState({
     Sex: '',
-    Age: '',
+    Age: '', // Ahora será un número normal
     HighBP: '',
     HeartDiseaseorAttack: '',
     BMI: '',
@@ -44,7 +44,7 @@ const AssessmentForm = ({ onSubmit, loading }) => {
               
               {/* Género */}
               <div>
-                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaUser className="text-lapis_lazuli-500" />
                   Género
                 </label>
@@ -67,37 +67,29 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                 </select>
               </div>
 
-              {/* Rango de Edad */}
+              {/* Edad - ACTUALIZADO: Campo numérico normal */}
               <div>
-                <label className=" text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaCalendarAlt className="text-lapis_lazuli-500" />
-                  Rango de Edad
+                  Edad
                 </label>
-                <select
+                <input
+                  type="number"
                   name="Age"
                   value={formData.Age}
                   onChange={handleChange}
-                  className="form-select"
+                  className="form-input"
+                  placeholder="Ej: 45"
+                  min="18"
+                  max="100"
                   required
-                >
-                  <option value="">Seleccionar rango de edad</option>
-                  <option value="1">18-24 años</option>
-                  <option value="2">25-29 años</option>
-                  <option value="3">30-34 años</option>
-                  <option value="4">35-39 años</option>
-                  <option value="5">40-44 años</option>
-                  <option value="6">45-49 años</option>
-                  <option value="7">50-54 años</option>
-                  <option value="8">55-59 años</option>
-                  <option value="9">60-64 años</option>
-                  <option value="10">65-69 años</option>
-                  <option value="11">70-74 años</option>
-                  <option value="12">75-79 años</option>
-                  <option value="13">80+ años</option>
-                </select>
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Ingrese su edad en años
+                </p>
               </div>
 
-              {/* Hipertensión */}
+              {/* Hipertension */}
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaHeartbeat className="text-red-500" />
@@ -170,7 +162,7 @@ const AssessmentForm = ({ onSubmit, loading }) => {
                 </p>
               </div>
 
-              {/* Estado de fumador */}
+              {/* Fumador */}
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
                   <FaSmoking className="text-gray-500" />
@@ -197,7 +189,7 @@ const AssessmentForm = ({ onSubmit, loading }) => {
             </div>
 
             <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-6 mt-8">
-              <h4 className=" text-teal-400 mb-3 flex items-center gap-2">
+              <h4 className="text-teal-400 mb-3 flex items-center gap-2">
                 <FaExclamationTriangle className="text-teal-400" />
                 Información importante
               </h4>
