@@ -57,7 +57,7 @@ CLASSES = ['Bleeding', 'Ischemia', 'Normal']
 
 # Cargar el modelo ML al iniciar la aplicación
 try:
-    model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'modelo_xgb.pkl')
+    model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'modelo_xgb_f.pkl')
     model = joblib.load(model_path)
     print("✅ Modelo cargado exitosamente!")
 except Exception as e:
