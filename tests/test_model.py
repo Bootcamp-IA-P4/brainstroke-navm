@@ -5,7 +5,7 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-model_path = os.path.join('model', 'modelo_xgb.pkl')
+model_path = os.path.join('model', 'modelo_xgb_f.pkl')
 data_path = os.path.join('data', 'csv_final.csv')
 
 class TestModel(unittest.TestCase):
