@@ -34,7 +34,7 @@ const ImageResults = ({ result, onReset, onBackToUpload }) => {
           color: 'text-red-700',
           bg: 'bg-red-50 border-red-200',
           icon: <FaExclamationCircle className="text-6xl text-red-600" />,
-          description: 'Se detectan signos compatibles with hemorragia cerebral',
+          description: 'Se detectan signos compatibles con hemorragia cerebral',
           confidence: confidence
         };
       default:
