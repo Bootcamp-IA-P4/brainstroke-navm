@@ -2,20 +2,25 @@
   <img src="https://res.cloudinary.com/artevivo/image/upload/v1749820724/Captura_de_pantalla_2025-06-13_151720_gynhuu.png" alt="Banner centrado" width="900" height="450">
 </div>
 
+
 ## 📌 Index
-- [About the Project](#-about-the-project)  
-- [Main Features](#-main-features)  
-- [Current Issues](#-current-issues)
-- [Folder Structure](#-folder-structure)
-- [Possible Improvements](#-possible-improvements)  
-- [Architecture Diagram](#-architecture-diagram)  
-- [Installation and Usage](#-installation-and-usage)
-- [Model Performance: XGBoost & Neural Network](#-model-performance-xgboost--neural-network)
-- [Testing](#-testing)
-- [Demo](#-demo)
-- [Render Deployment](#-render-deployment)
-- [Dockerization](#-dockerization).
-- [Collaborators](#-collaborators)  
+
+| Section | Link |
+|--------|------|
+| 🔍 About | [About the Project](#-about-the-project) |
+| ✨ Features | [Main Features](#-main-features) |
+| 🐞 Issues | [Current Issues](#-current-issues) |
+| 📁 Structure | [Folder Structure](#-folder-structure) |
+| 🧠 Improvements | [Possible Improvements](#-possible-improvements) |
+| 🗺️ Diagram | [Architecture Diagram](#-architecture-diagram) |
+| ⚙️ Usage | [Installation and Usage](#-installation-and-usage) |
+| 📊 Performance | [Model Performance: XGBoost & Neural Network](#-model-performance-xgboost--neural-network) |
+| 🧪 Testing | [Testing](#-testing) |
+| 🎥 Demo | [Demo](#-demo) |
+| 🚀 Deployment | [Render Deployment](#-render-deployment) |
+| 🐳 Docker | [Dockerization](#-dockerization) |
+| 🤝 Team | [Collaborators](#-collaborators) |
+
 ---
 
 ## 🧠 About the Project
