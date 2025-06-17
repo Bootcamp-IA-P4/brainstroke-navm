@@ -149,10 +149,10 @@ npm run dev
 - **Dataset**: Custom-labeled CT image dataset  
 - **Model File**: `model/model2.pth`
 
-#### 📉 :
 <div align="center">
   <img src="https://res.cloudinary.com/artevivo/image/upload/v1750155887/Captura_de_pantalla_2025-06-17_122408_zzyak7.png" alt="" width="600" height="200">
 </div>
+
 ---
 
 ## 🧐 Testing
@@ -161,8 +161,9 @@ Copy the following command to run the tests:
 python -m unittest discover
 ```
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750150979/Captura_de_pantalla_2025-06-17_110218_puakwm.png" alt="test" width="500" height="100">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750160289/Captura_de_pantalla_2025-06-17_133711_xjdvyx.png" alt="test" width="500" height="100">
 </div>
+
 ---
 
 ## 📂 Demo
