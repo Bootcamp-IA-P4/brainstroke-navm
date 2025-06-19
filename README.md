@@ -155,7 +155,7 @@ npm run dev
 - **Model File**: `model/model2.pth`
 
 <div align="center">
-  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750155887/Captura_de_pantalla_2025-06-17_122408_zzyak7.png" alt="" width="600" height="200">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750319932/Captura_de_pantalla_2025-06-19_095810_qvk0gz.png" alt="metrics" width="600" height="230">
 </div>
 
 ---
@@ -195,6 +195,10 @@ This application is Dockerized. To run it, execute the following command:
 ```bash
 docker-compose up --build
 ```
+<div align="center">
+  <img src="https://res.cloudinary.com/artevivo/image/upload/v1750319665/docker_brainStroke_mmhzko.png" alt="docker" width="600" height="350">
+</div>
+
 ---
 
 ## 🧑‍💻 Collaborators
