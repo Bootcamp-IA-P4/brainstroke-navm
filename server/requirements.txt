@@ -1,0 +1,14 @@
+supabase
+pandas
+numpy
+requests
+matplotlib
+scikit-learn
+sqlalchemy
+dotenv
+uvicorn
+fastapi
+seaborn
+joblib
+pydantic
+xgboost

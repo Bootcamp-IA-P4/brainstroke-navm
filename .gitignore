@@ -4,6 +4,11 @@ mlartifacts/
 *.db
 *.log
 *.bak
+data2/
+External_Test/
+*.dcm
+*.png
+*.jpg
 
 # === Python general ===
 __pycache__/
@@ -22,17 +27,17 @@ venv/
 # === Archivos de configuración secretos ===
 .env
 *.env
+.env.production
 
 # === Archivos grandes / temporales ===
 .DS_Store
 *.tmp
 *.log
-*.csv
+# *.csv
 *.tsv
 *.parquet
-*.pkl
 *.joblib
 
 # === Modelos guardados ===
-models/
 outputs/
+node_modules/
