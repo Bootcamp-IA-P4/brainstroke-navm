@@ -197,7 +197,7 @@ async def predict_image(file: UploadFile = File(...)):
     try:
         image_bytes = await file.read()
         upload_result = cloudinary.uploader.upload(
-            io.BytesIO(image_bytes),
+            image_bytes,
             folder="BrainStroke"
         )
         image_url = upload_result["secure_url"]

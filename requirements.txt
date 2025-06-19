@@ -15,3 +15,4 @@ xgboost
 torch
 torchvision
 cloudinary
+python-multipart
