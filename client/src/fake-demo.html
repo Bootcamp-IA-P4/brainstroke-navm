@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StrokePredict - Demo v0.1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .version {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .submit-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 3px;
+            margin-top: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+        .loading {
+            text-align: center;
+            color: #007bff;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>StrokePredict</h1>
+        <div class="version">Versión Demo 0.1 - En Desarrollo</div>
+        
+        <div class="warning">
+            ⚠️ Esta es una versión de prueba. Algunos errores pueden ocurrir.
+        </div>
+
+        <form id="strokeForm">
+            <div class="form-group">
+                <label for="gender">Género:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Edad:</label>
+                <input type="number" id="age" name="age" min="18" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="highBP">¿Tiene hipertensión?</label>
+                <select id="highBP" name="highBP" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="no">No</option>
+                    <option value="yes">Sí</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="heartDisease">¿Tiene enfermedad cardíaca?</label>
+                <select id="heartDisease" name="heartDisease" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="no">No</option>
+                    <option value="yes">Sí</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bmi">BMI (Índice de Masa Corporal):</label>
+                <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="60" required>
+            </div>
+
+            <div class="form-group">
+                <label for="smoker">¿Es fumador?</label>
+                <select id="smoker" name="smoker" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="no">No</option>
+                    <option value="yes">Sí</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Calcular Riesgo</button>
+            
+            <div class="loading" id="loading">
+                Procesando datos... ⏳
+            </div>
+            
+            <div class="error" id="errorMessage">
+                <strong>❌ Error del Sistema</strong><br>
+                No se pudo conectar con el servidor de análisis.<br>
+                <strong>Redirigiendo a la versión estable...</strong><br>
+                <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                    Serás redirigido automáticamente en <span id="countdown">3</span> segundos
+                </div>
+            </div>
+        </form>
+
+        <div class="footer">
+            <p>© 2025 StrokePredict - Versión de Desarrollo</p>
+            <p>En caso de errores, serás redirigido a la versión estable</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('strokeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Deshabilitar el botón y mostrar loading
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Procesando...';
+            loading.style.display = 'block';
+            
+            // Simular procesamiento por 2-3 segundos
+            setTimeout(() => {
+                // Ocultar loading y mostrar error
+                loading.style.display = 'none';
+                errorMessage.style.display = 'block';
+                
+                // Countdown de 3 segundos
+                let countdown = 3;
+                const countdownElement = document.getElementById('countdown');
+                
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    countdownElement.textContent = countdown;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        // Redirigir a tu aplicación React
+                        // Cambia esta URL por tu URL real (localhost:5173, dominio, etc.)
+                        window.location.href = 'http://localhost:5173';
+                    }
+                }, 1000);
+                
+            }, 2500); // 2.5 segundos de "procesamiento"
+        });
+    </script>
+</body>
+</html>
